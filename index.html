@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Portfolio | Graphic Designer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#5D5CDE',
+                        'primary-dark': '#4A49B0',
+                        'primary-light': '#7978E9',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        fade: 'fadeIn 0.5s ease-in-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        }
+                    }
+                },
+            }
+        }
+
+        // Check for dark mode preference
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .project-card:hover .project-overlay {
+            opacity: 0.9;
+            transform: translateY(0);
+        }
+        
+        .project-overlay {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Generate colorful patterns for portfolio images */
+        .project-image {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            z-index: -1;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        .dark ::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #5D5CDE;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4A49B0;
+        }
+
+        /* Loader animation */
+        .loader {
+            border-top-color: #5D5CDE;
+            animation: spinner 0.8s linear infinite;
+        }
+        
+        @keyframes spinner {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="font-sans bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white dark:bg-gray-900 z-50 transition-colors duration-300 shadow-md">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex justify-between items-center py-4">
+                <a href="#" class="text-xl md:text-2xl font-bold text-primary dark:text-primary-light">
+                    Designer<span class="text-gray-700 dark:text-gray-300">.Portfolio</span>
+                </a>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="hover:text-primary dark:hover:text-primary-light transition-colors">Home</a>
+                    <a href="#about" class="hover:text-primary dark:hover:text-primary-light transition-colors">About</a>
+                    <a href="#portfolio" class="hover:text-primary dark:hover:text-primary-light transition-colors">Portfolio</a>
+                    <a href="#contact" class="hover:text-primary dark:hover:text-primary-light transition-colors">Contact</a>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <button id="menu-toggle" class="md:hidden p-2 focus:outline-none">
+                    <svg class="w-6 h-6 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="md:hidden hidden pb-4">
+                <div class="flex flex-col space-y-4">
+                    <a href="#home" class="hover:text-primary dark:hover:text-primary-light transition-colors">Home</a>
+                    <a href="#about" class="hover:text-primary dark:hover:text-primary-light transition-colors">About</a>
+                    <a href="#portfolio" class="hover:text-primary dark:hover:text-primary-light transition-colors">Portfolio</a>
+                    <a href="#contact" class="hover:text-primary dark:hover:text-primary-light transition-colors">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-24 pb-16 md:pt-32 md:pb-24">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="w-full md:w-1/2 md:pr-12">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+                        Creative <span class="text-primary dark:text-primary-light">Graphic</span> Designer
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-8">
+                        Transforming ideas into visual experiences that captivate and communicate.
+                    </p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="#portfolio" class="bg-primary hover:bg-primary-dark text-white py-3 px-8 rounded-md transition duration-300 text-center">
+                            View Work
+                        </a>
+                        <a href="#contact" class="border-2 border-primary hover:bg-primary hover:text-white text-primary dark:text-primary-light dark:hover:text-white py-3 px-8 rounded-md transition duration-300 text-center">
+                            Get in Touch
+                        </a>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 mt-12 md:mt-0">
+                    <div class="relative">
+                        <div class="w-full h-64 md:h-96 bg-primary/20 dark:bg-primary/10 rounded-lg overflow-hidden relative">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="text-center">
+                                    <svg class="inline-block w-24 h-24 md:w-32 md:h-32 text-primary dark:text-primary-light" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M8.843 9.655c-0.75-0.75-1.968-0.75-2.718 0l-2.813 2.814c-0.752 0.75-0.752 1.967 0 2.719l2.814 2.814c0.75 0.75 1.967 0.75 2.717 0l2.814-2.814c0.752-0.752 0.752-1.969 0-2.719l-2.814-2.814zM20.688 3.811l-0.498-0.5c-0.75-0.75-1.967-0.75-2.717 0l-2.816 2.815c-0.75 0.75-0.75 1.967 0 2.719l0.499 0.499c0.75 0.75 1.969 0.75 2.719 0l2.813-2.815c0.75-0.75 0.75-1.969 0-2.718zM13.25 13.252l-0.5-0.5c-0.75-0.75-1.967-0.75-2.717 0l-2.815 2.815c-0.75 0.75-0.75 1.969 0 2.719l0.5 0.5c0.75 0.75 1.967 0.75 2.717 0l2.815-2.816c0.75-0.75 0.75-1.967 0-2.718z"/>
+                                    </svg>
+                                    <h3 class="mt-4 text-xl font-semibold text-primary dark:text-primary-light">Creative Designer</h3>
+                                </div>
+                            </div>
+                            <div class="absolute -bottom-6 -right-6 w-24 h-24 bg-primary/30 dark:bg-primary/20 rounded-full"></div>
+                            <div class="absolute -top-6 -left-6 w-16 h-16 bg-primary/30 dark:bg-primary/20 rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-gray-100 dark:bg-gray-800 transition-colors duration-300">
+        <div class="container mx-auto px-4 md:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">About <span class="text-primary dark:text-primary-light">Me</span></h2>
+            
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="w-full md:w-1/3 mb-8 md:mb-0">
+                    <div class="relative w-48 h-48 mx-auto rounded-full overflow-hidden border-4 border-primary">
+                        <div class="absolute inset-0 bg-gradient-to-r from-primary-light to-primary opacity-70 flex items-center justify-center text-white text-4xl font-bold">
+                            JD
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="w-full md:w-2/3 md:pl-12">
+                    <h3 class="text-2xl font-semibold mb-4">Jane Doe</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-6">
+                        I'm a passionate graphic designer with over 5 years of experience creating impactful visual solutions. 
+                        My approach combines creativity with strategic thinking to deliver designs that not only look beautiful 
+                        but also effectively communicate my clients' messages.
+                    </p>
+                    
+                    <h4 class="font-semibold text-xl mb-3">My Expertise</h4>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+                        <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-sm">
+                            <span class="text-primary dark:text-primary-light">Brand Identity</span>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-sm">
+                            <span class="text-primary dark:text-primary-light">UI/UX Design</span>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-sm">
+                            <span class="text-primary dark:text-primary-light">Print Design</span>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-sm">
+                            <span class="text-primary dark:text-primary-light">Illustration</span>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-sm">
+                            <span class="text-primary dark:text-primary-light">Motion Graphics</span>
+                        </div>
+                        <div class="bg-white dark:bg-gray-700 p-4 rounded-lg shadow-sm">
+                            <span class="text-primary dark:text-primary-light">Typography</span>
+                        </div>
+                    </div>
+                    
+                    <h4 class="font-semibold text-xl mb-3">Design Tools</h4>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="px-3 py-1 bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary-light rounded-full">Adobe Photoshop</span>
+                        <span class="px-3 py-1 bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary-light rounded-full">Adobe Illustrator</span>
+                        <span class="px-3 py-1 bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary-light rounded-full">Adobe InDesign</span>
+                        <span class="px-3 py-1 bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary-light rounded-full">Figma</span>
+                        <span class="px-3 py-1 bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary-light rounded-full">Sketch</span>
+                        <span class="px-3 py-1 bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary-light rounded-full">After Effects</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-16">
+        <div class="container mx-auto px-4 md:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 text-center">My <span class="text-primary dark:text-primary-light">Portfolio</span></h2>
+            <p class="text-gray-600 dark:text-gray-400 text-center max-w-2xl mx-auto mb-12">
+                A selection of my recent work across different design disciplines.
+            </p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Portfolio items will be generated with JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-gray-100 dark:bg-gray-800 transition-colors duration-300">
+        <div class="container mx-auto px-4 md:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 text-center">Get in <span class="text-primary dark:text-primary-light">Touch</span></h2>
+            <p class="text-gray-600 dark:text-gray-400 text-center max-w-2xl mx-auto mb-12">
+                Have a project in mind? I'd love to hear about it. Let's create something amazing together.
+            </p>
+            
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="w-full md:w-1/2 bg-white dark:bg-gray-700 p-6 rounded-lg shadow-sm">
+                    <h3 class="text-xl font-semibold mb-4">Send Me a Message</h3>
+                    
+                    <form id="contact-form" class="space-y-4">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Name</label>
+                            <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-primary focus:border-primary dark:bg-gray-800 dark:text-white text-base" required>
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+                            <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-primary focus:border-primary dark:bg-gray-800 dark:text-white text-base" required>
+                        </div>
+                        
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Subject</label>
+                            <input type="text" id="subject" name="subject" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-primary focus:border-primary dark:bg-gray-800 dark:text-white text-base" required>
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Message</label>
+                            <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-primary focus:border-primary dark:bg-gray-800 dark:text-white text-base" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-primary hover:bg-primary-dark text-white py-3 px-4 rounded-md transition duration-300">
+                            Send Message
+                        </button>
+                    </form>
+                    
+                    <div id="form-message" class="mt-4 text-center hidden"></div>
+                </div>
+                
+                <div class="w-full md:w-1/2 bg-white dark:bg-gray-700 p-6 rounded-lg shadow-sm">
+                    <h3 class="text-xl font-semibold mb-4">Contact Information</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary/20 dark:bg-primary/30 flex items-center justify-center text-primary dark:text-primary-light">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">Email</h4>
+                                <p class="mt-1 text-primary dark:text-primary-light">hello@designerportfolio.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary/20 dark:bg-primary/30 flex items-center justify-center text-primary dark:text-primary-light">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">Phone</h4>
+                                <p class="mt-1 text-primary dark:text-primary-light">+1 (555) 123-4567</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary/20 dark:bg-primary/30 flex items-center justify-center text-primary dark:text-primary-light">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300">Location</h4>
+                                <p class="mt-1 text-primary dark:text-primary-light">San Francisco, CA</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <h3 class="text-xl font-semibold mb-4">Let's Connect</h3>
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-10 h-10 rounded-full bg-primary/20 dark:bg-primary/30 flex items-center justify-center text-primary dark:text-primary-light hover:bg-primary hover:text-white transition duration-300">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-primary/20 dark:bg-primary/30 flex items-center justify-center text-primary dark:text-primary-light hover:bg-primary hover:text-white transition duration-300">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723 10.023 10.023 0 01-3.127 1.184 4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-primary/20 dark:bg-primary/30 flex items-center justify-center text-primary dark:text-primary-light hover:bg-primary hover:text-white transition duration-300">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-primary/20 dark:bg-primary/30 flex items-center justify-center text-primary dark:text-primary-light hover:bg-primary hover:text-white transition duration-300">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-primary/20 dark:bg-primary/30 flex items-center justify-center text-primary dark:text-primary-light hover:bg-primary hover:text-white transition duration-300">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.441 16.892c-2.102.144-6.784.144-8.883 0C5.282 16.736 5.017 15.622 5 12c.017-3.629.285-4.736 2.558-4.892 2.099-.144 6.782-.144 8.883 0C18.718 7.264 18.982 8.378 19 12c-.018 3.629-.285 4.736-2.559 4.892zM10 9.658l4.917 2.338L10 14.342V9.658z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <a href="#" class="text-xl font-bold">Designer<span class="text-primary-light">.Portfolio</span></a>
+                </div>
+                
+                <div class="text-center md:text-right">
+                    <p class="text-gray-400">&copy; 2023 Designer Portfolio. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Portfolio data
+        const portfolioItems = [
+            {
+                title: "Brand Identity: Eco Solutions",
+                category: "Branding",
+                description: "Complete brand identity design for an eco-friendly product line.",
+                color1: "#3CAEA3",
+                color2: "#20639B"
+            },
+            {
+                title: "Fashion Mobile App UI",
+                category: "UI/UX Design",
+                description: "User interface design for a high-end fashion e-commerce application.",
+                color1: "#F6D55C",
+                color2: "#ED553B"
+            },
+            {
+                title: "Typography Poster Series",
+                category: "Print Design",
+                description: "Award-winning poster series showcasing experimental typography.",
+                color1: "#FA8072",
+                color2: "#FF4500"
+            },
+            {
+                title: "Tech Company Website Redesign",
+                category: "Web Design",
+                description: "Complete redesign of a tech startup's website focusing on user experience.",
+                color1: "#5D5CDE",
+                color2: "#25248D"
+            },
+            {
+                title: "Food Packaging Design",
+                category: "Packaging",
+                description: "Creative packaging solutions for an organic food brand.",
+                color1: "#8BC34A",
+                color2: "#006400"
+            },
+            {
+                title: "Annual Report Design",
+                category: "Editorial",
+                description: "Clean, data-focused annual report design for a financial institution.",
+                color1: "#FF6B6B",
+                color2: "#556270"
+            }
+        ];
+
+        // Generate Portfolio Items
+        document.addEventListener('DOMContentLoaded', function() {
+            const portfolioGrid = document.querySelector('#portfolio .grid');
+            
+            portfolioItems.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'project-card rounded-lg overflow-hidden shadow-md transition-transform duration-300 hover:-translate-y-2';
+                
+                card.innerHTML = `
+                    <div class="project-image h-64 relative" style="background-image: linear-gradient(45deg, ${item.color1}, ${item.color2});">
+                        <div class="absolute inset-0 flex items-center justify-center text-white">
+                            <div class="w-16 h-16 rounded-full border-2 border-white flex items-center justify-center">
+                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    ${getProjectIcon(item.category)}
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="project-overlay absolute inset-0 bg-primary dark:bg-primary-dark flex flex-col items-center justify-center p-6 text-white">
+                            <h4 class="text-xl font-semibold mb-2">${item.title}</h4>
+                            <p class="text-sm text-center">${item.description}</p>
+                            <a href="#" class="mt-4 px-4 py-2 border border-white rounded-full hover:bg-white hover:text-primary transition duration-300">View Project</a>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-white dark:bg-gray-700">
+                        <span class="text-sm text-primary dark:text-primary-light">${item.category}</span>
+                        <h3 class="font-semibold mt-1">${item.title}</h3>
+                    </div>
+                `;
+                
+                portfolioGrid.appendChild(card);
+            });
+            
+            // Mobile menu toggle
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            menuToggle.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // Close mobile menu when clicking on a link
+            const mobileLinks = mobileMenu.querySelectorAll('a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+            
+            // Contact form submission
+            const contactForm = document.getElementById('contact-form');
+            const formMessage = document.getElementById('form-message');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Show loading state
+                formMessage.innerHTML = `
+                    <div class="flex items-center justify-center">
+                        <div class="w-5 h-5 border-2 border-primary border-t-transparent rounded-full loader"></div>
+                        <span class="ml-2 text-gray-600 dark:text-gray-400">Sending message...</span>
+                    </div>
+                `;
+                formMessage.classList.remove('hidden');
+                
+                // Simulate form submission (in a real application, you would send data to a server)
+                setTimeout(() => {
+                    formMessage.innerHTML = `
+                        <div class="text-green-500">
+                            <svg class="w-6 h-6 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Your message has been sent successfully! I'll get back to you soon.
+                        </div>
+                    `;
+                    contactForm.reset();
+                    
+                    // Hide success message after 5 seconds
+                    setTimeout(() => {
+                        formMessage.classList.add('hidden');
+                    }, 5000);
+                }, 1500);
+            });
+        });
+        
+        // Helper function to get SVG icon path based on category
+        function getProjectIcon(category) {
+            switch(category.toLowerCase()) {
+                case 'branding':
+                    return '<path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>';
+                case 'ui/ux design':
+                    return '<path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"></path>';
+                case 'web design':
+                    return '<path fill-rule="evenodd" d="M4.083 9h1.946c.089-1.546.383-2.97.837-4.118A6.004 6.004 0 004.083 9zM10 2a8 8 0 100 16 8 8 0 000-16zm0 2c-.076 0-.232.032-.465.262-.238.234-.497.623-.737 1.182-.389.907-.673 2.142-.766 3.556h3.936c-.093-1.414-.377-2.649-.766-3.556-.24-.56-.5-.948-.737-1.182C10.232 4.032 10.076 4 10 4zm3.971 5c-.089-1.546-.383-2.97-.837-4.118A6.004 6.004 0 0115.917 9h-1.946zm-2.003 2H8.032c.093 1.414.377 2.649.766 3.556.24.56.5.948.737 1.182.233.23.389.262.465.262.076 0 .232-.032.465-.262.238-.234.498-.623.737-1.182.389-.907.673-2.142.766-3.556zm1.166 4.118c.454-1.147.748-2.572.837-4.118h1.946a6.004 6.004 0 01-2.783 4.118zm-6.268 0C6.412 13.97 6.118 12.546 6.03 11H4.083a6.004 6.004 0 002.783 4.118z" clip-rule="evenodd"></path>';
+                case 'print design':
+                    return '<path fill-rule="evenodd" d="M5 4v3H4a2 2 0 00-2 2v3a2 2 0 002 2h1v2a2 2 0 002 2h6a2 2 0 002-2v-2h1a2 2 0 002-2V9a2 2 0 00-2-2h-1V4a2 2 0 00-2-2H7a2 2 0 00-2 2zm8 0H7v3h6V4zm0 8H7v4h6v-4z" clip-rule="evenodd"></path>';
+                case 'packaging':
+                    return '<path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4z"></path><path fill-rule="evenodd" d="M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" clip-rule="evenodd"></path>';
+                case 'editorial':
+                    return '<path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"></path>';
+                default:
+                    return '<path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path>';
+            }
+        }
+    </script>
+</body>
+</html>
